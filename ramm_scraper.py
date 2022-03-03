@@ -29,7 +29,8 @@ else:
 
         if response.status_code == 200:
             print(f'{current_id} ok')
-            print(save_page(soup, url))
+            print(save_page(soup, url, current_id))
         else:
             print(f'{current_id} empty')
+    exit()
 
