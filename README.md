@@ -1,6 +1,4 @@
-# Scraper for the RammsteinShop
-
-# Scraping [RammsteinShop](https://shop.rammstein.de/en)
+# Scraper for the [RammsteinShop](https://shop.rammstein.de/en)
 
 ## Installation
 
