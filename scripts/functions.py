@@ -1,6 +1,7 @@
 import os
 from bs4 import BeautifulSoup
 import re
+import requests
 
 BASE_URL = 'https://shop.rammstein.de/en/catalog/product_info.php?products_id='
 WHATS_NEW_URL = 'https://shop.rammstein.de/en/catalog/whats-new.html'
@@ -31,16 +32,25 @@ def save_page(soup, url, id):
     for element in img_urls:
         img_str += f'{url}\n'
 
-    text = f'{url}\n\n{title}\n{img_str}'
+    text = f'{url}\n\n{title}\n\n{img_str}'
 
     file = open(f'RammsteinShop/{id} {title}/info.txt', 'w')
     file.write(text)
     file.close()
+
+    save_images(img_urls, id, title)
     
     return f'{id}: Files written!'
 
-def save_images(urls):
-    pass
+def save_images(urls, id, title):
+    x = 1
+    for element in urls:
+        response = requests.get(element)
+
+        file = open(f'RammsteinShop/{id} {title}/{x}.{element[-3:]}', "wb")
+        file.write(response.content)
+        file.close()
+        x += 1
     
 
 #def save_description():
