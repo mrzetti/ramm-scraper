@@ -23,6 +23,13 @@ def save_page(soup, url, id):
         os.makedirs('RammsteinShop')
 
     title = soup.find_all("li", class_="active hidden-xxs")[0].next
+    price = soup.find_all('span', class_='neverwrap')[0].next
+
+    if soup.find_all('span', class_='neverwrap color-lifad') != []:
+        price_lifad = soup.find_all('span', class_='neverwrap color-lifad')[0].next
+    else:
+        price_lifad = ''
+    
 
     if not os.path.exists(f'RammsteinShop/{id} {title}'):
         os.makedirs(f'RammsteinShop/{id} {title}')
@@ -30,9 +37,9 @@ def save_page(soup, url, id):
     img_urls = get_image_urls(soup, id)
     img_str = ''
     for element in img_urls:
-        img_str += f'{url}\n'
+        img_str += f'{element}\n'
 
-    text = f'{url}\n\n{title}\n\n{img_str}'
+    text = f'{url}\n\n{title}\n\nPrice: {price}\nLIFAD: {price_lifad}\n\n\n{img_str}'
 
     file = open(f'RammsteinShop/{id} {title}/info.txt', 'w')
     file.write(text)
